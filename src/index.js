@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
+ReactDOM.render( //render:翻譯 轉譯的方法
+  <React.StrictMode> 
+  {/* 檢查工具 */}
     <App />
   </React.StrictMode>,
   document.getElementById('root')
