@@ -1,27 +1,20 @@
 import React from 'react'
 
-const students = [
-  { id: 1, name: 'a' },
-  { id: 2, name: 'b' },
-  { id: 3, name: 'c' }
-]
-
 function App() {
+  const count = 0
+  const foo = true
+
   return (
     <>
-      {/* 用map把陣列每個成員處理過變一個新的陣列 */}
-      {/* 用陣列索引值當key要注意是不是變動性 */}
-      {/* 用id值當key是最佳解 */}
-      <ul>
-        {/* 把每個學生資料一個一個拿過來 套上li */}
-        {students.map((student,i)=>{
-          {/* 使用map時要使用key屬性(可以使用索引值，但不穩定不太好) */}
-          {/* 因為react對於列表清單要做最佳化，key可以幫助react分辨 */}
-          return <li key={student.id}>{student.name}</li>
-        })}
-      </ul>
-      {/* 上面執行的結果 */}
-      <ul>{[<li>a</li>, <li > b</li>, <li > c</li>]}</ul>
+      {/* https://reactjs.org/docs/conditional-rendering.html */}
+      {/* if... */}
+      {/* &&前面的要轉為布林值(一般情況下)(才不會跑出一個0) */}
+      {/* !!是強制轉成布林值 */}
+      {/* 注意：只能在jsx語法裡寫 */}
+      {count > 0 && `目前總數為${count}`}
+      <hr />
+      {/* if...else */}
+      {foo ? 1 : 2}
     </>
   )
 }
