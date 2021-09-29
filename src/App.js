@@ -1,9 +1,9 @@
-import Parent from './components/Parent'
+import Counter from './components/Counter'
 
 function App() {
   return (
     <>
-      <Parent />
+      <Counter />
     </>
   )
 }
