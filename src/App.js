@@ -1,14 +1,12 @@
-import CounterFC from './components/CounterFC'
-import CounterCC from './components/CounterCC'
+import FormFC from './components/FormFC'
+import FormCC from './components/FormCC'
 
 function App() {
   return (
     <>
-      <h2>函式型元件</h2>
-      <CounterFC />
+      <FormFC />
       <hr />
-      <h2>類別型元件</h2>
-      <CounterCC />
+      <FormCC />
     </>
   )
 }
