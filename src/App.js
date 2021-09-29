@@ -1,12 +1,9 @@
-import FormFC from './components/FormFC'
-import FormCC from './components/FormCC'
+import Parent from './components/Parent'
 
 function App() {
   return (
     <>
-      <FormFC />
-      <hr />
-      <FormCC />
+      <Parent />
     </>
   )
 }
