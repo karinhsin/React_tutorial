@@ -19,6 +19,7 @@ function FormFC() {
             value={loginData.username} 
             onChange={(event)=>{
                 setLoginData({
+                    //這邊需要自行合併物件值 不然其他物件屬性會被丟棄
                     ...loginData,
                     username: event.target.value,
                 })
