@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import RadioButton from './components/RadioButton'
+import CheckBox from './components/CheckBox'
 
 function App(props) {
   const [inputText, setInputText] = useState('')
@@ -12,6 +13,11 @@ function App(props) {
   const genderOptions = ['男', '女', '不提供', '不確定']
   //checkbox - single
   const [agree, setAgree] = useState(false)
+  // checkbox - group
+  const [likeList, setLikeList] = useState([])
+  // checkbox - group - 專用元件
+  const [likeList2, setLikeList2] = useState([])
+  const fruitOptions = ['芒果', '西瓜', '芭樂']
 
   return (
     <>
@@ -100,7 +106,7 @@ function App(props) {
         })}
       </section>
 
-      <section id="checkbox-single">
+      <section id="checkboxSingle">
         <h2>單一核取方塊</h2>
         <input
           type="checkbox"
@@ -110,6 +116,85 @@ function App(props) {
           }}
         />
         <label>我同意網站註冊規定</label>
+      </section>
+
+      <section id="checkboxGroup">
+      <h2>多個核取方塊</h2>
+      <input
+      type="checkbox"
+      value="芒果"
+      checked={likeList.includes('芒果')}
+      onChange={(e) =>{
+        //toggle（切換）
+        //如果這選項在陣列中 -> 移出陣列（新的陣列裡面不會有這個值）
+        if (likeList.includes(e.target.value)) {
+          //1.拷貝新陣列
+          //2.在新陣列裡面做處理
+          //filter過濾掉剛好不是這個值
+          const newLikeList = likeList.filter((v, i) => {
+            return v !== e.target.value
+          })
+
+          // //for迴圈語法
+          // const newLikeList = []
+          // for(let i = 0; i < likeList.length; i++) {
+          //   if(likeList[i]!== e.target.value) {
+          //     newLikeList.push(likeList[i])
+          //   }
+          // }
+          
+          //3.設定回狀態
+              setLikeList(newLikeList)
+            } else {
+              // 如果這選項 不在 陣列中 -> 加入陣列
+              //1. 拷貝新陣列
+              //2. 新陣列中作處理
+              const newLikeList = [...likeList, e.target.value]
+              //3. 設定回狀態
+              setLikeList(newLikeList)
+            }
+          }}
+        />
+        <label>芒果</label>
+      <input
+          type="checkbox"
+          value="西瓜"
+          checked={likeList.includes('西瓜')}
+          onChange={(e) => {
+            // toggle(切換)
+            // 如果這選項 在 陣列中 -> 移出陣列
+            if (likeList.includes(e.target.value)) {
+              //1. 拷貝新陣列
+              //2. 新陣列中作處理
+              const newLikeList = likeList.filter((v, i) => {
+                return v !== e.target.value
+              })
+
+              //3. 設定回狀態
+              setLikeList(newLikeList)
+            } else {
+              // 如果這選項 不在 陣列中 -> 加入陣列
+              //1. 拷貝新陣列
+              //2. 新陣列中作處理
+              const newLikeList = [...likeList, e.target.value]
+              //3. 設定回狀態
+              setLikeList(newLikeList)
+            }
+          }}
+        />
+        <label>西瓜</label>
+      </section>
+      <section id="checkboxGroup2">
+        {fruitOptions.map((v, i) => {
+          return (
+            <CheckBox
+              key={i}
+              value={v}
+              checkedValueList={likeList2}
+              setCheckedValueList={setLikeList2}
+            />
+          )
+        })}
       </section>
     </>
   )
