@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import RadioButton from './components/RadioButton'
 
 function App(props) {
   const [inputText, setInputText] = useState('')
@@ -6,6 +7,10 @@ function App(props) {
   const [selectedOption, setSelectedOption] = useState('') //注意初始值
   //radio 狀態紀錄是被選中選項按鈕的值
   const [gender, setGender] = useState('')
+  //radio - 專用元件
+  const [gender2, setGender2] = useState('')
+  const genderOptions = ['男', '女', '不提供', '不確定']
+
   return (
     <>
       <h1>可控表單元素</h1>
@@ -50,7 +55,8 @@ function App(props) {
       <section id="radioGroup">
         <h2>選項按鈕</h2>
         {/* 這邊的value不一定會用到 只是代表是哪個被選中 */}
-        <input type="radio"
+        <input
+          type="radio"
           value="男"
           checked={gender === '男'}
           onChange={(e) => {
@@ -58,7 +64,8 @@ function App(props) {
           }}
         />
         <label>男</label>
-        <input type="radio"
+        <input
+          type="radio"
           value="女"
           checked={gender === '女'}
           onChange={(e) => {
@@ -66,7 +73,8 @@ function App(props) {
           }}
         />
         <label>女</label>
-        <input type="radio"
+        <input
+          type="radio"
           value="未定"
           checked={gender === '未定'}
           onChange={(e) => {
@@ -74,6 +82,20 @@ function App(props) {
           }}
         />
         <label>未定</label>
+      </section>
+
+      <section id="radioButton">
+        <h2>選項按鈕（專用元件）</h2>
+        {genderOptions.map((v, i) => {
+          return (
+            <RadioButton
+              key={i}
+              value={v}
+              checkedValue={gender2}
+              setCheckedValue={setGender2}
+            />
+          )
+        })}
       </section>
     </>
   )
