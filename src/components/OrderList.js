@@ -35,6 +35,7 @@ function OrderList(props) {
 
                                 //2. 運算處理：更新陣列中對應商品數量
                                 // 更新陣列中本商品索引值，如果小於1以1來更新
+                                // 拉出去寫在外面的話[i]會有閉包的問題
                                 newProductsInOrder[i].count = newCount < 1 ? 1 : newCount
 
                                 //3. 設定回原本的狀態
