@@ -10,6 +10,8 @@ function App(props) {
   //radio - 專用元件
   const [gender2, setGender2] = useState('')
   const genderOptions = ['男', '女', '不提供', '不確定']
+  //checkbox - single
+  const [agree, setAgree] = useState(false)
 
   return (
     <>
@@ -96,6 +98,18 @@ function App(props) {
             />
           )
         })}
+      </section>
+
+      <section id="checkbox-single">
+        <h2>單一核取方塊</h2>
+        <input
+          type="checkbox"
+          checked={agree}
+          onChange={(e) => {
+            setAgree(e.target.checked)
+          }}
+        />
+        <label>我同意網站註冊規定</label>
       </section>
     </>
   )
