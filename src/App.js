@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import './menu.css'
 import OrderList from './components/OrderList'
 import Summary from './components/Summary'
 
@@ -76,7 +77,13 @@ function App() {
 
   return (
     <div className="card">
+      <ul>
+        <li><a>首頁</a></li>
+        <li><a>關於我們</a></li>
+        <li><a>產品</a></li>
+      </ul>
       <div className="row">
+
         <OrderList products={products} setCounts={setCounts} counts={counts} />
         <Summary productCount={productCount()} total={total()} />
       </div>
