@@ -1,202 +1,86 @@
-import React, { useState } from 'react'
-import RadioButton from './components/RadioButton'
-import CheckBox from './components/CheckBox'
+import { useState } from 'react'
+import './App.css'
+import OrderList from './components/OrderList'
+import Summary from './components/Summary'
 
-function App(props) {
-  const [inputText, setInputText] = useState('')
-  const [textArea, setTextArea] = useState('')
-  const [selectedOption, setSelectedOption] = useState('') //注意初始值
-  //radio 狀態紀錄是被選中選項按鈕的值
-  const [gender, setGender] = useState('')
-  //radio - 專用元件
-  const [gender2, setGender2] = useState('')
-  const genderOptions = ['男', '女', '不提供', '不確定']
-  //checkbox - single
-  const [agree, setAgree] = useState(false)
-  // checkbox - group
-  const [likeList, setLikeList] = useState([])
-  // checkbox - group - 專用元件
-  const [likeList2, setLikeList2] = useState([])
-  const fruitOptions = ['芒果', '西瓜', '芭樂']
+// 產品訂購的項目
+const products = [
+  {
+    id: 1,
+    name: '咖啡色 T-shirt',
+    category: 'Shirt',
+    image: 'https://i.imgur.com/1GrakTl.jpg',
+    price: 300,
+  },
+  {
+    id: 2,
+    name: '白色 T-shirt',
+    category: 'Shirt',
+    image: 'https://i.imgur.com/ba3tvGm.jpg',
+    price: 200,
+  },
+  {
+    id: 3,
+    name: '黑色 T-shirt',
+    category: 'Shirt',
+    image: 'https://i.imgur.com/pHQ3xT3.jpg',
+    price: 450,
+  },
+  {
+    id: 4,
+    name: '黑色素面 T-shirt',
+    category: 'Shirt',
+    image: 'https://i.imgur.com/pHQ3xT3.jpg',
+    price: 100,
+  },
+]
+
+// const initState = () => {
+//   console.log(products)
+//   const array = []
+
+//   for (let i; i < products.length; i++) {
+//     array.push(1)
+//   }
+//   console.log(array)
+//   return array
+// }
+
+function App() {
+  // 多樣產品狀態：陣列
+  // ex. 三樣商品 -> [1,1,1]
+  const [counts, setCounts] = useState(Array(products.length).fill(1))
+
+  // Summary
+  // 計算目前所有的商品數量
+  const productCount = () => {
+    let totalCount = 0
+
+    for (let i = 0; i < counts.length; i++) {
+      totalCount += counts[i]
+    }
+
+    return totalCount
+  }
+
+  // 計算目前所有的商品總價
+  const total = () => {
+    let sum = 0
+
+    for (let i = 0; i < products.length; i++) {
+      sum += counts[i] * products[i].price
+    }
+
+    return sum
+  }
 
   return (
-    <>
-      <h1>可控表單元素</h1>
-      {/* 讓程式碼比較方便折疊加section */}
-      <section id="inputText">
-        <h2>文字輸入框</h2>
-        <input
-          type="text"
-          value={inputText}
-          onChange={(e) => {
-            setInputText(e.target.value)
-          }}
-        />
-      </section>
-
-      <section id="textArea">
-        <h2>文字區域</h2>
-        <textarea
-          value={textArea}
-          onChange={(e) => {
-            setTextArea(e.target.value)
-          }}
-        />
-      </section>
-
-      <section id="selectedOption">
-        <h2>下拉選單</h2>
-        <select
-          value={selectedOption}
-          onChange={(e) => {
-            setSelectedOption(e.target.value)
-          }}
-        >
-          {/* 第一個值會用state的初始值 */}
-          <option value="">請選擇</option>
-          <option value="雞腿">雞腿</option>
-          <option value="魯肉">魯肉</option>
-          <option value="排骨">排骨</option>
-        </select>
-      </section>
-
-      <section id="radioGroup">
-        <h2>選項按鈕</h2>
-        {/* 這邊的value不一定會用到 只是代表是哪個被選中 */}
-        <input
-          type="radio"
-          value="男"
-          checked={gender === '男'}
-          onChange={(e) => {
-            setGender(e.target.value)
-          }}
-        />
-        <label>男</label>
-        <input
-          type="radio"
-          value="女"
-          checked={gender === '女'}
-          onChange={(e) => {
-            setGender(e.target.value)
-          }}
-        />
-        <label>女</label>
-        <input
-          type="radio"
-          value="未定"
-          checked={gender === '未定'}
-          onChange={(e) => {
-            setGender(e.target.value)
-          }}
-        />
-        <label>未定</label>
-      </section>
-
-      <section id="radioButton">
-        <h2>選項按鈕（專用元件）</h2>
-        {genderOptions.map((v, i) => {
-          return (
-            <RadioButton
-              key={i}
-              value={v}
-              checkedValue={gender2}
-              setCheckedValue={setGender2}
-            />
-          )
-        })}
-      </section>
-
-      <section id="checkboxSingle">
-        <h2>單一核取方塊</h2>
-        <input
-          type="checkbox"
-          checked={agree}
-          onChange={(e) => {
-            setAgree(e.target.checked)
-          }}
-        />
-        <label>我同意網站註冊規定</label>
-      </section>
-
-      <section id="checkboxGroup">
-      <h2>多個核取方塊</h2>
-      <input
-      type="checkbox"
-      value="芒果"
-      checked={likeList.includes('芒果')}
-      onChange={(e) =>{
-        //toggle（切換）
-        //如果這選項在陣列中 -> 移出陣列（新的陣列裡面不會有這個值）
-        if (likeList.includes(e.target.value)) {
-          //1.拷貝新陣列
-          //2.在新陣列裡面做處理
-          //filter過濾掉剛好不是這個值
-          const newLikeList = likeList.filter((v, i) => {
-            return v !== e.target.value
-          })
-
-          // //for迴圈語法
-          // const newLikeList = []
-          // for(let i = 0; i < likeList.length; i++) {
-          //   if(likeList[i]!== e.target.value) {
-          //     newLikeList.push(likeList[i])
-          //   }
-          // }
-          
-          //3.設定回狀態
-              setLikeList(newLikeList)
-            } else {
-              // 如果這選項 不在 陣列中 -> 加入陣列
-              //1. 拷貝新陣列
-              //2. 新陣列中作處理
-              const newLikeList = [...likeList, e.target.value]
-              //3. 設定回狀態
-              setLikeList(newLikeList)
-            }
-          }}
-        />
-        <label>芒果</label>
-      <input
-          type="checkbox"
-          value="西瓜"
-          checked={likeList.includes('西瓜')}
-          onChange={(e) => {
-            // toggle(切換)
-            // 如果這選項 在 陣列中 -> 移出陣列
-            if (likeList.includes(e.target.value)) {
-              //1. 拷貝新陣列
-              //2. 新陣列中作處理
-              const newLikeList = likeList.filter((v, i) => {
-                return v !== e.target.value
-              })
-
-              //3. 設定回狀態
-              setLikeList(newLikeList)
-            } else {
-              // 如果這選項 不在 陣列中 -> 加入陣列
-              //1. 拷貝新陣列
-              //2. 新陣列中作處理
-              const newLikeList = [...likeList, e.target.value]
-              //3. 設定回狀態
-              setLikeList(newLikeList)
-            }
-          }}
-        />
-        <label>西瓜</label>
-      </section>
-      <section id="checkboxGroup2">
-        {fruitOptions.map((v, i) => {
-          return (
-            <CheckBox
-              key={i}
-              value={v}
-              checkedValueList={likeList2}
-              setCheckedValueList={setLikeList2}
-            />
-          )
-        })}
-      </section>
-    </>
+    <div className="card">
+      <div className="row">
+        <OrderList products={products} setCounts={setCounts} counts={counts} />
+        <Summary productCount={productCount()} total={total()} />
+      </div>
+    </div>
   )
 }
 
