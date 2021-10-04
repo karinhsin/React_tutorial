@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import RadioButton from './components/RadioButton'
+import CheckBox from './components/CheckBox'
+
 
 function App(props) {
   //使用物件值作為狀態值，儲存所有欄位的值
@@ -6,14 +9,22 @@ function App(props) {
     username: '',
     email: '',
     password: '',
+    intro: '',
+    gender: '',
     //不要隨便用null跟undefine 要小心一點
   })
+  
+  // radio - 專用元件
+  // RadioButton元件有作修改
+  const genderOptions = ['男', '女', '不提供', '不確定']
 
   //專門用來處理每個欄位的輸入用
   const handleFieldChange = (e) =>{
     //狀態是陣列或物件是一定要遵循以下三步驟
     //1.從原本的狀態物件拷貝新物件
     //2.在拷貝的新物件上處理
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%90%8D
     const updateFields = {
       ...fields, //展開運算符（可用在物件）
       [e.target.name]:e.target.value //計算得來的屬性名稱
@@ -52,6 +63,7 @@ function App(props) {
           onChange={handleFieldChange}
           required
         />
+        <br/>
         <label>Email</label>
         <input
           type="email"
@@ -60,6 +72,7 @@ function App(props) {
           onChange={handleFieldChange}
           required
         />
+        <br/>
         <label>密碼</label>
         <input
           type="text"
@@ -69,13 +82,26 @@ function App(props) {
           required
           minLength="5"  //最少要輸入5個字元
         />
-
-        <h2>利用FormData獲取checkbox的值(不可控元件)</h2>
-        <input type="checkbox" value="西瓜" name="likeList" />
-        <label>西瓜</label>
-        <input type="checkbox" value="芒果" name="likeList" />
-        <label>芒果</label>
-        <button type="submit">提交</button>
+        <br />
+        <label>簡歷</label>
+        <textarea
+          name="intro"
+          value={fields.intro}
+          onChange={handleFieldChange}
+        />
+        <br />
+        <label>性別</label>
+        {genderOptions.map((v, i) => {
+          return (
+            <RadioButton
+              name="gender"
+              key={i}
+              value={v}
+              checkedValue={fields.gender}
+              setCheckedValue={handleFieldChange}
+            />
+          )
+        })}
 
         <button type="submit">提交</button>
         {/* button in form tag
