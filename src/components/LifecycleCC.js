@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 class LifecycleCC extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = { total: 0 }
         console.log('constructor')
     }
