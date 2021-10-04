@@ -70,6 +70,13 @@ function App(props) {
           minLength="5"  //最少要輸入5個字元
         />
 
+        <h2>利用FormData獲取checkbox的值(不可控元件)</h2>
+        <input type="checkbox" value="西瓜" name="likeList" />
+        <label>西瓜</label>
+        <input type="checkbox" value="芒果" name="likeList" />
+        <label>芒果</label>
+        <button type="submit">提交</button>
+
         <button type="submit">提交</button>
         {/* button in form tag
       1.要有type 
