@@ -1,20 +1,71 @@
-import React from 'react'
-import InputId from './components/InputId'
-import InputRefs from './components/InputRefs'
+import React, { useState } from 'react'
 
 function App(props) {
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  //在表單完成驗證之後，這邊才會觸發
+  const handleSubmit = (e) => {
+    //這行一定要寫 為了阻擋form的預設送出行為
+    e.preventDefault()
+
+    //利用FormData Api 得到各欄位的值 or 利用狀態值
+    //FormData 利用的是表單元素的名字(name)
+    const formData = new FormData(e.target) //e.target指的是這個表單
+    console.log(formData.get('username'))
+    console.log(formData.get('email'))
+    console.log(formData.get('password'))
+
+    // ex. 用fetch api/axios送到伺服器
+  }
+
   return (
     <>
-      <InputId />
-      <InputId />
-      <InputRefs />
-      <InputRefs />
+      <h1>HTML5表單驗證</h1>
+      {/* 表單的預設行為是他會送到另一個網址
+      action跟method有預設值
+       */}
+      <form onSubmit={handleSubmit}>
+        <label>帳號</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value)
+          }}
+          required
+        />
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value)
+          }}
+          required
+        />
+        <label>密碼</label>
+        <input
+          type="text"
+          name="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value)
+          }}
+          required
+          minLength="5"  //最少要輸入5個字元
+        />
+
+        <button type="submit">提交</button>
+        {/* button in form tag
+      1.要有type 
+      2.裡面不要再加onclick 不然行為會不正常 */}
+      </form>
+        
     </>
-    // 為什麼要使用ref而不用id
-    // 1.元件生命週期問題
-    // refs可以確保這個東西會出現在網頁上，id不一定
-    // 2.元件的可重複利用性
-    // 使用id的話，如果重複使用兩次同樣的元件，只有第一個跑得出來，第二個會當作沒看到
   )
 }
 
