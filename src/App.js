@@ -1,9 +1,26 @@
 import React, { useState } from 'react'
 
 function App(props) {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  //使用物件值作為狀態值，儲存所有欄位的值
+  const [fields, setFields] = useState({
+    username: '',
+    email: '',
+    password: '',
+    //不要隨便用null跟undefine 要小心一點
+  })
+
+  //專門用來處理每個欄位的輸入用
+  const handleFieldChange = (e) =>{
+    //狀態是陣列或物件是一定要遵循以下三步驟
+    //1.從原本的狀態物件拷貝新物件
+    //2.在拷貝的新物件上處理
+    const updateFields = {
+      ...fields, //展開運算符（可用在物件）
+      [e.target.name]:e.target.value //計算得來的屬性名稱
+    }
+    //3.設定回原狀態物件
+    setFields(updateFields)
+  }
 
   //在表單完成驗證之後，這邊才會觸發
   const handleSubmit = (e) => {
@@ -31,30 +48,24 @@ function App(props) {
         <input
           type="text"
           name="username"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value)
-          }}
+          value={fields.username}
+          onChange={handleFieldChange}
           required
         />
         <label>Email</label>
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-          }}
+          value={fields.email}
+          onChange={handleFieldChange}
           required
         />
         <label>密碼</label>
         <input
           type="text"
           name="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value)
-          }}
+          value={fields.password}
+          onChange={handleFieldChange}
           required
           minLength="5"  //最少要輸入5個字元
         />
