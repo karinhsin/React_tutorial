@@ -10,6 +10,7 @@ function App(props) {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '', //有可能只是在瀏覽器端檢查用而已
     intro: '',
     gender: '',
     likeList: [],
@@ -21,6 +22,7 @@ function App(props) {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '', // 有可能只是在瀏覽器檢查用而已
   })
   
   // radio - 專用元件
@@ -107,6 +109,21 @@ function App(props) {
     console.log(formData.get('gender')) //只需要一個值
     console.log(formData.getAll('likeList')) //需要所有值
 
+    //檢查確認密碼欄位
+    if(formData.get('password') !== formData.get('confirmPassword')){
+      //設定錯誤訊息狀態
+      const updatedFieldErrors = {
+        ...fieldErrors,
+        password: '密碼與確認密碼欄位輸入值不相同',
+        confirmPassword: '密碼與確認密碼欄位輸入值不相同',
+      }
+      // 3. 設定回原錯誤訊息狀態物件
+      setFieldErrors(updatedFieldErrors)
+
+      // 不送出資料到伺服器
+      return
+    }
+
     // ex. 以下用fetch api/axios送到伺服器
   }
 
@@ -157,6 +174,19 @@ function App(props) {
         />
         {fieldErrors.password !== '' && (
           <div className="error">{fieldErrors.password}</div>
+        )}
+        <br />
+        <label>確認密碼</label>
+        <input
+          type="text"
+          name="confirmPassword"
+          value={fields.confirmPassword}
+          onChange={handleFieldChange}
+          required
+          minLength="5"
+        />
+        {fieldErrors.confirmPassword !== '' && (
+          <div className="error">{fieldErrors.confirmPassword}</div>
         )}
         <br />
         <label>簡歷</label>
