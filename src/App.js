@@ -1,39 +1,59 @@
-import React, { useState, useEffect, useRef } from 'react'
-import $ from 'jquery' //導入jquery模組
+import React, { useState, useEffect } from 'react'
+import './App.css'
+import FilterBar from './components/FilterBar'
+import ProductList from './components/ProductList'
+import SearchBar from './components/SearchBar'
+import SortBar from './components/SortBar'
+import ProductFC from './components/ProductFC'
 
-// 參考這裡的步驟說明：
-// https://github.com/eyesofkids/mfee19-react/issues/9
+
+import { data } from './data'
+
 function App() {
-  const [data, setData] = useState(123)
-  const buttonRef = useRef()
+  const [products, setProducts] = useState([])
+  const [displayProducts, setDisplayProducts] = useState([])
 
-  // didMount+didUpdate
+  const [tags, setTags] = useState([])
+  const [searchWord, setSearchWord] = useState('')
+  const [sortBy, setSortBy] = useState('')
+
   useEffect(() => {
-    //jquery的程式碼需要寫在這裡，確保dom元素已經出現在網頁上
-    // 移除原本的事件
-    $(buttonRef.current).off('click')
+    setProducts(data)
+    setDisplayProducts(data)
+  }, [])
 
-    // 加入新的事件
-    $(buttonRef.current).on('click', () => alert('data is ' + data))
-  }, [data])
 
   return (
     <>
-      <button ref={buttonRef}>jquery按我</button>
-      <button
-        onClick={() => {
-          setData(999)
-        }}
-      >
-        更動狀態為999
-      </button>
-      <button
-        onClick={() => {
-          setData(8888)
-        }}
-      >
-        更動狀態為8888
-      </button>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="grid search">
+              <div className="grid-body">
+                <div className="row">
+                  <div className="col-md-3">
+                    <FilterBar />
+                  </div>
+                  
+                  <div className="col-md-9">
+                  
+                    <h2>
+                      <i className="fa fa-file-o"></i> 商品列表
+                    </h2>
+                    <hr />
+                    <SearchBar />
+                    
+                    <div className="padding"></div>
+                    
+                    <SortBar />
+                    <ProductList products={displayProducts} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
