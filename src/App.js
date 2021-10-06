@@ -1,16 +1,10 @@
-import React, { useState } from 'react'
-import LifecycleCC from './components/LifecycleCC'
-import LifecycleFC from './components/LifecycleFC'
-import ProductCC from './components/ProductCC'
+import React from 'react'
 import ProductFC from './components/ProductFC'
 
 function App() {
-  const [isLive, setIsLive] = useState(true)
-
   return (
     <>
-      {isLive && <ProductCC />}
-      <button onClick={() => setIsLive(!isLive)}>切換</button>
+      <ProductFC />
     </>
   )
 }

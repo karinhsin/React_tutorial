@@ -36,42 +36,44 @@ function ProductFC(props) {
     // }]
 
     const [products, setProducts] = useState([])//寫null undefine都不好
+    //為了要切換載入動畫提示
+    //這是一種做法，資料較多且複雜時可以用也可以用place holder
+    const [isLoading, setIsLoading] = useState(true)
 
     // didMount
     // 第二個傳入參數為空陣列時，只執行第一次(讀取到時)
     useEffect(() => {
-        console.log('componentDidMount')
-
         // 模擬商品從伺服器來(fetch/ajax)
-        //設定經過兩秒才跟伺服器要資料
+        //設定經過1秒才跟伺服器要資料
         setTimeout(() => {
-            //因為呼叫this.setstate 開始進入更新階段
             setProducts(productsFromServer)
+        }, 1000)
+
+        // 把載入動畫提示關起來
+        setTimeout(() => {
+            setIsLoading(false)
         }, 2000)
     }, [])
 
-    // didMount +  didUpdate 兩個都有
-    // 只執行第一次(讀取到時) + 當products有改變時，執行裡面的程式碼
-    useEffect(() => {
-        console.log('componentDidMount + componentDidUpdate')
-    }, [products])
-    //[]裡面放的通常是狀態或父母元件來的props
+    const spinner = (
+        <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+        </div>
+    )
 
-    // didUpdate
-    // 當products有改變時，執行裡面的程式碼
-    // 使用預設值的概念
-    useEffect(() => {
-        if (products.length) console.log('componentDidUpdate')
-    }, [products])
+    const display = (
+        <ul>
+            {products.map((v, i) => {
+                return <li key={i}>{v.name}</li>
+            })}
+        </ul>
+    )
 
     return (
         <>
             <h1>商品資料</h1>
-            <ul>
-                {products.map((v, i) => {
-                    return <li key={i}>{v.name}</li>
-                })}
-            </ul>
+            {/* 用載入指示的旗標來切換呈現 */}
+            {isLoading ? spinner : display}
         </>
     )
 }
