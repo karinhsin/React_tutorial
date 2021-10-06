@@ -7,16 +7,33 @@ function App() {
   const [data, setData] = useState(123)
   const buttonRef = useRef()
 
-  // didMount
+  // didMount+didUpdate
   useEffect(() => {
     //jquery的程式碼需要寫在這裡，確保dom元素已經出現在網頁上
-    $(buttonRef.current).on('click',() => alert('data is ' + data))
-    //$(buttonRef.current).click(() => alert('data is ' + data))
-  }, [])
+    // 移除原本的事件
+    $(buttonRef.current).off('click')
+
+    // 加入新的事件
+    $(buttonRef.current).on('click', () => alert('data is ' + data))
+  }, [data])
 
   return (
     <>
-      <button ref={buttonRef}>click me</button>
+      <button ref={buttonRef}>jquery按我</button>
+      <button
+        onClick={() => {
+          setData(999)
+        }}
+      >
+        更動狀態為999
+      </button>
+      <button
+        onClick={() => {
+          setData(8888)
+        }}
+      >
+        更動狀態為8888
+      </button>
     </>
   )
 }
