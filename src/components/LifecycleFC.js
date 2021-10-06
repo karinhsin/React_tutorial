@@ -7,7 +7,7 @@ const initialState = () => {
 
 function LifecycleFC(props) {
     const [total, setTotal] = useState(initialState())
-    //const [didMount, setDidMount] = useState(false)
+    const [didMount, setDidMount] = useState(false)
 
     const didMountRef = useRef(false)
 
@@ -17,7 +17,7 @@ function LifecycleFC(props) {
         console.log('componentDidMount(模擬)')
 
         // 設定目前進入didMount階段
-        //setDidMount(true)
+        setDidMount(true)
     }, [])
 
     // 模擬componentDidUpdate+componentDidMount
@@ -30,11 +30,11 @@ function LifecycleFC(props) {
     // 利用didMount狀態值來完整模擬
     // eslint會有警告(注意：不需要加入didMount狀態在依賴陣列中)
     // 要使用這種方式要搭配第10，20行
-    // useEffect(() => {
-    //   if (didMount) {
-    //     console.log('componentDidUpdate(模擬)', total)
-    //   }
-    // }, [total])
+    useEffect(() => {
+        if (didMount) {
+            console.log('componentDidUpdate(模擬)', total)
+        }
+    }, [total])
 
     // 只模擬componentDidUpdate
     // 利用didMountRef來完整模擬
