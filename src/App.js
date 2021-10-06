@@ -10,7 +10,8 @@ function App() {
   // didMount
   useEffect(() => {
     //jquery的程式碼需要寫在這裡，確保dom元素已經出現在網頁上
-    $(buttonRef.current).click(() => alert('data is ' + data))
+    $(buttonRef.current).on('click',() => alert('data is ' + data))
+    //$(buttonRef.current).click(() => alert('data is ' + data))
   }, [])
 
   return (
