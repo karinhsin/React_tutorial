@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import LifecycleCC from './components/LifecycleCC'
 import LifecycleFC from './components/LifecycleFC'
 import ProductCC from './components/ProductCC'
+import ProductFC from './components/ProductFC'
 
 function App() {
   const [isLive, setIsLive] = useState(true)
