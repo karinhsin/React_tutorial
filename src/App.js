@@ -1,48 +1,32 @@
+import { useState } from 'react'
+import { Button, Modal } from 'react-bootstrap'
+
 function App() {
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
   return (
     <>
-      <div className="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
-      </div>
-      <div className="alert alert-secondary" role="alert">
-        A simple secondary alert—check it out!
-      </div>
-      <hr />
-      <div className="spinner-border text-primary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-      <div className="spinner-border text-secondary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-      <hr />
-      <button type="button" className="btn btn-primary">
-        Primary
-      </button>
-      <button type="button" className="btn btn-secondary">
-        Secondary
-      </button>
-      <button type="button" className="btn btn-success">
-        Success
-      </button>
-      <button type="button" className="btn btn-danger">
-        Danger
-      </button>
-      <button type="button" className="btn btn-warning">
-        Warning
-      </button>
-      <button type="button" className="btn btn-info">
-        Info
-      </button>
-      <button type="button" className="btn btn-light">
-        Light
-      </button>
-      <button type="button" className="btn btn-dark">
-        Dark
-      </button>
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
 
-      <button type="button" className="btn btn-link">
-        Link
-      </button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }

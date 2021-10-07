@@ -1,8 +1,8 @@
 // 變數覆蓋需要在導入Bootstrap的Sass檔案之前
 // 參考bootstrap模組的 _variables.scss
-$primary: #021d09 ;
-$secondary: #cf11f5 ;
-$danger:  #8f0909;
+$primary: #e7820e;
+$secondary: #3f12e4;
+$danger: #8f0909;
 
 // 導入bootstrap所有的樣式與預設變數
 @import '~bootstrap/scss/bootstrap.scss';
