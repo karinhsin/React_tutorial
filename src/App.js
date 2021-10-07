@@ -1,33 +1,50 @@
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import React from 'react'
+ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import React, { useState } from 'react'
 import Home from './pages/Home'
 import About from './pages/About'
 import Product from './pages/Product'
 import Android from './pages/sub-product/Android'
 import Apple from './pages/sub-product/Apple'
+import User from './pages/User'
 
 function App() {
+  // 指示會員是否登入，true = 登入
+  const [auth, setAuth] = useState(false)
+
   return (
     <Router>
       <>
+        <h2>Link元件</h2>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
+        <Link to="/product">Product</Link>
+        <Link to="/user">User</Link>
+        <h2>a標籤+href</h2>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/product">Product</a>
+        <a href="/user">User</a>
 
         <Switch>
-          <Route exact path="/product/apple">
+          {/* 路徑愈長往愈上面放 */}
+          <Route path="/product/apple">
             <Apple />
           </Route>
-          <Route exact path="/product/android">
+          <Route path="/product/android">
             <Android />
           </Route>
-          <Route exact path="/product">
-            <Product />
+          <Route path="/product">
+            <Product auth={auth} />
           </Route>
           <Route path="/about">
             <About />
           </Route>
+          <Route path="/user">
+            <User auth={auth} setAuth={setAuth} />
+          </Route>
+          {/* exact 精確 代表要求要精準地符合路徑再套用這個元件或css樣式 */ }
           <Route exact path="/">
-            <Home />
+            <Home auth={auth} />
           </Route>
         </Switch>
       </>
