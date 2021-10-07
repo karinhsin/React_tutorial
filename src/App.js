@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
-import { FaCartPlus } from 'react-icons/fa'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import React from 'react'
+import Home from './pages/Home'
+import About from './pages/About'
+import Product from './pages/Product'
+import Android from './pages/sub-product/Android'
+import Apple from './pages/sub-product/Apple'
 
 function App() {
-  const [show, setShow] = useState(false)
-
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        <FaCartPlus size="2em" color="#ccc" /> 開啟
-      </Button>
+    <Router>
+      <>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        <Switch>
+          <Route exact path="/product/apple">
+            <Apple />
+          </Route>
+          <Route exact path="/product/android">
+            <Android />
+          </Route>
+          <Route exact path="/product">
+            <Product />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </>
+    </Router>
   )
 }
 
