@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import { FaCartPlus } from 'react-icons/fa'
 
 function App() {
   const [show, setShow] = useState(false)
@@ -10,7 +11,7 @@ function App() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        <FaCartPlus size="2em" color="#ccc" /> 開啟
       </Button>
 
       <Modal show={show} onHide={handleClose}>
