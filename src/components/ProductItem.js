@@ -10,7 +10,7 @@ import React from 'react'
 //  }
 
 function ProductItem(props) {
-    const { name, category, image, price, count, setCount } = props
+    const { name, category, image, price, count, setCount, deleteProduct } = props
 
     return (
         <>
@@ -45,7 +45,9 @@ function ProductItem(props) {
             </a>
                     </div>
                     <div className="col">
-                        ${price} <span className="close">&#10005;</span>
+                        ${price} <button onClick={() => {
+                            deleteProduct()
+                        }}className="close">&#10005;</button>
                     </div>
                 </div>
             </div>

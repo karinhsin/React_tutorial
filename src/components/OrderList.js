@@ -3,7 +3,7 @@ import ProductItem from './ProductItem'
 
 function OrderList(props) {
     //counts 代表陣列
-    const { products, counts, setCounts } = props
+    const { products, setProducts } = props
 
     return (
         <>
@@ -28,18 +28,25 @@ function OrderList(props) {
                             category={v.category}
                             image={v.image}
                             price={v.price}
-                            count={counts[i]}
+                            count={v.count}
                             setCount={(newCount) => {
                                 //1. 先從原本的陣列拷貝出一個新陣列(在這上面處理)
                                 // ex. [1,1,1]
-                                const newCounts = [...counts]
+                                let newProducts = [...products]
 
                                 //2. 運算處理：更新陣列中對應商品數量
                                 // 更新陣列中本商品索引值，如果小於1以1來更新
-                                newCounts[i] = newCount < 1 ? 1 : newCount
+                                newProducts[i].count = newCount < 1 ? 1 : newCount
 
                                 //3. 設定回原本的狀態
-                                setCounts(newCounts)
+                                setProducts(newProducts)
+                            }}
+                            deleteProduct={()=>{
+                                let newProducts = [...products]
+
+                                newProducts.splice(i, 1)
+
+                                setProducts(newProducts)
                             }}
                         />
                     )
