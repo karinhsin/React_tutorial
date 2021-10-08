@@ -6,6 +6,7 @@ function Cart(props) {
 
   // didMount 讀 localStorage
   useEffect(() => {
+    //把產品資料記在localStorage裡面再從裡面拿出來
     const myCart = localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
       : []

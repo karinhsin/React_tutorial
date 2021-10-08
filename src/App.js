@@ -1,132 +1,73 @@
-import { useState } from 'react'
-import './App.css'
-import './menu.css'
-import OrderList from './components/OrderList'
-import Summary from './components/Summary'
-import MenuItem from './components/MenuItem'
-
-// 產品訂購的項目
-const originalProducts = [
-  {
-    id: 1,
-    name: '咖啡色 T-shirt',
-    category: 'Shirt',
-    image: 'https://i.imgur.com/1GrakTl.jpg',
-    price: 300,
-    count: 1
-  },
-  {
-    id: 2,
-    name: '白色 T-shirt',
-    category: 'Shirt',
-    image: 'https://i.imgur.com/ba3tvGm.jpg',
-    price: 200,
-    count: 1
-  },
-  {
-    id: 3,
-    name: '黑色 T-shirt',
-    category: 'Shirt',
-    image: 'https://i.imgur.com/pHQ3xT3.jpg',
-    price: 450,
-    count: 1
-  },
-  {
-    id: 4,
-    name: '黑色素面 T-shirt',
-    category: 'Shirt',
-    image: 'https://i.imgur.com/pHQ3xT3.jpg',
-    price: 100,
-    count: 1
-  },
-]
-
-// const initState = () => {
-//   console.log(products)
-//   const array = []
-
-//   for (let i; i < products.length; i++) {
-//     array.push(1)
-//   }
-//   console.log(array)
-//   return array
-// }
-
-const menuLabels = [
-  {
-    label:'首頁',
-    active: ''
-  },
-  {
-    label: '關於我們',
-    active: ''
-  },
-  {
-    label: '產品',
-    active: ''
-  }]
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import Home from './pages/Home'
+import About from './pages/About'
+import Product from './pages/Product'
+import Android from './pages/sub-product/Android'
+import Apple from './pages/sub-product/Apple'
+import User from './pages/User'
+import Cart from './pages/Cart'
 
 function App() {
-  // 多樣產品狀態：陣列
-  // ex. 三樣商品 -> [1,1,1]
-  const [products, setProducts] = useState(originalProducts)
-  const [menu, setMenu] = useState(menuLabels)
+  // 指示會員是否登入，true = 登入
+  const [auth, setAuth] = useState(false)
 
-  // Summary
-  // 計算目前所有的商品數量
-  const productCount = () => {
-    let totalCount = 0
-
-    totalCount = products.reduce((total, value)=>{
-        // value是每一個商品項目
-        // value.count是每一個商品項目的數量
-        // total預設為0
-        return value.count + total
-    },0)
-
-    return totalCount
-  }
-
-  // 計算目前所有的商品總價
-  const total = () => {
-    let sum = 0
-
-    sum = products.reduce((total, value) => {
-      return value.count * value.price + total
-    }, 0)
-
-    return sum
-  }
+  // didMount
+  // useEffect(() => {
+  //   // 問伺服器是否有會員登入
+  //   // 如果有登入，設定auth為true
+  //   setAuth(true)
+  // }, [])
 
   return (
-    <div className="card">
-      <ul>
-        {menu.map((v, i) => {
-          return (
-            <MenuItem
-              key={i}
-              item={v.label}
-              active={v.active}
-              setActive={() => {
-                let newMenu = [...menu]
-                newMenu = newMenu.map((value, index) => {
-                  return {
-                    label: value.label,
-                    active: i == index ? 'active' : ''
-                  }
-                })
-                setMenu(newMenu)
-              }}
-            />
-          )
-        })}
-      </ul>
-      <div className="row">
+    <Router>
+      <>
+        <h2>選單</h2>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/product">Product</Link>
+          </li>
+          <li>
+            <Link to="/user">User</Link>
+          </li>
 
-        <OrderList products={products} setProducts={setProducts} />
-        <Summary productCount={productCount()} total={total()} />
-      </div>
-    </div>
+          <li>
+            <Link to="/cart">Cart</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          {/* 路徑愈長往愈上面放 */}
+          <Route path="/product/apple">
+            <Apple />
+          </Route>
+          <Route path="/product/android">
+            <Android />
+          </Route>
+          <Route path="/product">
+            <Product auth={auth} />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/user">
+            <User auth={auth} setAuth={setAuth} />
+          </Route>
+          <Route exact path="/">
+            <Home auth={auth} />
+          </Route>
+        </Switch>
+      </>
+    </Router>
   )
 }
 
