@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react'
 import Home from './pages/Home'
 import About from './pages/About'
 import Product from './pages/Product'
+import ProductDetail from './pages/ProductDetail'
+
 import Android from './pages/sub-product/Android'
 import Apple from './pages/sub-product/Apple'
 import User from './pages/User'
@@ -43,6 +45,9 @@ function App() {
           </Route>
           <Route path="/product/android">
             <Android />
+          </Route>
+          <Route path="/product-detail/:id?">
+            <ProductDetail />
           </Route>
           <Route path="/product">
             <Product cartCount={cartCount} setCartCount={setCartCount} />

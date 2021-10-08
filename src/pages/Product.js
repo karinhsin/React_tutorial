@@ -8,13 +8,13 @@ function Product(props) {
 
   return (
     <>
-      <h1>Product</h1>
+      <h1>產品總覽頁</h1>
       會員登入情況：{props.auth ? '已登入' : '還未登入'}
       <ul>
         {data.map((v, i) => {
           return (
             <li key={i}>
-              {v.name}
+              <Link to={'/product-detail/' + v.id}>{v.name}</Link>
               <button
                 onClick={() => {
                   // 加到localStorage
