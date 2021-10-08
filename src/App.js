@@ -63,7 +63,7 @@ function App() {
           <Route path="/user">
             <User auth={auth} setAuth={setAuth} />
           </Route>
-          <Route path="/admin/user/:task?">
+          <Route path="/admin/user/:task?/:id?">
             <UserAdminIndex />
           </Route>
           <Route exact path="/">
