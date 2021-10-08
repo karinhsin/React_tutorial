@@ -6,14 +6,15 @@ import About from './pages/About'
 import Product from './pages/Product'
 import ProductDetail from './pages/ProductDetail'
 
-import Android from './pages/sub-product/Android'
-import Apple from './pages/sub-product/Apple'
+// import Android from './pages/sub-product/Android'
+// import Apple from './pages/sub-product/Apple'
 import User from './pages/User'
 import Cart from './pages/Cart'
 
 import UserAdminIndex from './pages/admin/user/UserAdminIndex'
 
 import Menu from './components/Menu'
+import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
   // 指示會員是否登入，true = 登入
@@ -39,16 +40,10 @@ function App() {
     <Router>
       <>
         <Menu cartCount={cartCount} />
-
+        <MultiLevelBreadCrumb />
         <Switch>
           {/* 路徑愈長往愈上面放 */}
-          <Route path="/product/apple">
-            <Apple />
-          </Route>
-          <Route path="/product/android">
-            <Android />
-          </Route>
-          <Route path="/product-detail/:id?">
+          <Route path="/product/product-detail/:id?">
             <ProductDetail />
           </Route>
           <Route path="/product">
