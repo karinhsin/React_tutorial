@@ -4,6 +4,8 @@ import React from 'react'
 import { data } from '../data/'
 
 function Product(props) {
+  const { cartCount, setCartCount } = props
+
   return (
     <>
       <h1>Product</h1>
@@ -15,14 +17,16 @@ function Product(props) {
               {v.name}
               <button
                 onClick={() => {
-
+                  // 加到localStorage
                   const myCart = localStorage.getItem('cart')
                     ? JSON.parse(localStorage.getItem('cart'))
                     : []
 
                   const newMyCart = [...myCart, v]
-
                   localStorage.setItem('cart', JSON.stringify(newMyCart))
+
+                  // 每次一按加入，選單列購物數量+1
+                  setCartCount(cartCount + 1)
                 }}
               >
                 加入購物車
