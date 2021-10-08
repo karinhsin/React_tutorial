@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 
 function User(props) {
   return (
@@ -8,12 +9,25 @@ function User(props) {
       <button
         onClick={() => {
           props.setAuth(true)
+
+          alert('登入成功！')
+
+          //導向首頁
+          props.history.push('/')
         }}
       >
         登入
+      </button>
+      <button
+        onClick={() => {
+          //導向首頁
+          props.history.goBack()
+        }}
+      >
+        回到上一頁
       </button>
     </>
   )
 }
 
-export default User
+export default withRouter(User)

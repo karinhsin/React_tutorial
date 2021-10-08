@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     // 問伺服器是否有會員登入
     // 如果有登入，設定auth為true
-    setAuth(true)
+    //setAuth(true)
 
     //請localstorage中的購物車數量
     const myCart = localStorage.getItem('cart')
