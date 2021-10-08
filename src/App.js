@@ -11,6 +11,8 @@ import Apple from './pages/sub-product/Apple'
 import User from './pages/User'
 import Cart from './pages/Cart'
 
+import UserAdminIndex from './pages/admin/user/UserAdminIndex'
+
 import Menu from './components/Menu'
 
 function App() {
@@ -60,6 +62,9 @@ function App() {
           </Route>
           <Route path="/user">
             <User auth={auth} setAuth={setAuth} />
+          </Route>
+          <Route path="/admin/user/:task?">
+            <UserAdminIndex />
           </Route>
           <Route exact path="/">
             <Home auth={auth} />

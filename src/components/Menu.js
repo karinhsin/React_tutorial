@@ -19,6 +19,9 @@ function Menu(props) {
         <li>
           <Link to="/user">User</Link>
         </li>
+        <li>
+          <Link to="/admin/user">User Admin</Link>
+        </li>
 
         <li>
           <Link to="/cart">Cart</Link>
@@ -26,7 +29,7 @@ function Menu(props) {
         <li>
           <button type="button" className="btn btn-primary">
             購物數量 <span className="badge badge-light">{cartCount}</span>
-            <span class="sr-only"></span>
+            <span className="sr-only"></span>
           </button>
         </li>
       </ul>
