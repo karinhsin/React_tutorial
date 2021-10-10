@@ -1,32 +1,28 @@
 import { useState, useEffect } from 'react'
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
+import TodoList from './TodoList'
 
-const App = () =>{
-  const now = new Date()
-  const [startDate, setStartDate] = useState(now)
+const App = () => {
+  //後面的方法set..是用來蓋掉前面變數的值
+  const [item, setItem] = useState('')
+  const [todoList , setTodoList] = useState([])
 
-  useEffect(() => {
-    const year = (now - startDate) / (1000 * 60 * 60 * 24 * 365)
-    
-    if (year == 0){
-      return
-    }
-
-    if (year > 18){
-          alert("超過18歲")
-        }
-        else{
-          alert("不超過18歲")
-        }
-    })
-
-  return(
+  return (
     <>
-    <div className="wrap">
-      <h2>請輸入生日</h2>
-        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-    </div>
+     <input type="text" value={item} onChange={(e)=>{
+       setItem(e.target.value)
+       //()裡面是輸入在input欄位的值
+     }} />
+      <button 
+      onClick={() => {
+        let newList = [...todoList] //複製陣列
+        let newItem = { name: item } //把輸入的值(item)加入到物件裡的name屬性 
+        newList.push(newItem) //將newItem加入到newList
+        setTodoList(newList) //新的取代舊的
+      }}
+      >
+      Enter
+      </button>
+      <TodoList todoList={todoList} setTodoList={setTodoList}/>
     </>
   )
 }
